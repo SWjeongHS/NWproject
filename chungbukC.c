@@ -8,6 +8,9 @@
 
 void error_handling(char *message);
 void processCSVRow(const char *line, int *count, double *sum, double *max, double *min);
+
+//ÃæºÏÃæºÏ
+
 int main(int argc, char *argv[]){
     int sock;
     struct sockaddr_in serv_addr;
@@ -31,14 +34,14 @@ int main(int argc, char *argv[]){
         error_handling("connect() error!");
     }
 
-    FILE * file13 = fopen("13busan.csv","rt");
+    FILE * file13 = fopen("13chungbuk.csv","rt");
     
     char line[1024];
 
     int count = 0;
     double sum = 0.0;
-    double max = 0.0; // ìµœëŒ€ê°’ ì´ˆê¸°í™”
-    double min = 0.0; // ìµœì†Œê°’ ì´ˆê¸°í™”
+    double max = 0.0; // ÃÖ´ë°ª ÃÊ±âÈ­
+    double min = 0.0; // ÃÖ¼Ò°ª ÃÊ±âÈ­
 
     while (fgets(line, 1024, file13) != NULL) {
         size_t len = strlen(line);
@@ -55,7 +58,7 @@ int main(int argc, char *argv[]){
         printf("13 avg: %.2f\n", average);
     }
     else {
-        printf("ë°ì´í„°ê°€ ì—†ìŠµë‹ˆë‹¤.\n");
+        printf("µ¥ÀÌÅÍ°¡ ¾ø½À´Ï´Ù.\n");
     }
 
     fseek(file13,0,SEEK_END);
@@ -82,7 +85,7 @@ int main(int argc, char *argv[]){
     }
     free(file_buffer13);
     
-    FILE * file14 = fopen("14busan.csv","rt");
+    FILE * file14 = fopen("14chungbuk.csv","rt");
     char line2 [1024];
     count = 0;
     sum = 0.0;
@@ -103,7 +106,7 @@ int main(int argc, char *argv[]){
         printf("14avg: %.2f\n", average);
     }
     else {
-        printf("ë°ì´í„°ê°€ ì—†ìŠµë‹ˆë‹¤.\n");
+        printf("µ¥ÀÌÅÍ°¡ ¾ø½À´Ï´Ù.\n");
     }
 
     fseek(file14,0,SEEK_END);
@@ -137,25 +140,25 @@ void processCSVRow(const char *line, int *count, double *sum, double *max, doubl
     char *rest = (char *)malloc(strlen(line) + 1);
     strcpy(rest, line);
 
-    // ','ë¥¼ ê¸°ì¤€ìœ¼ë¡œ í† í° ë¶„ë¦¬
+    // ','¸¦ ±âÁØÀ¸·Î ÅäÅ« ºĞ¸®
     for (int i = 0; i < 6; ++i) {
         token = strtok_r(rest, ",", &rest);
         if (token != NULL) {
-            // íŠ¹ì • ì—´ì— ëŒ€í•œ ì²˜ë¦¬
-            if (i == 5) { // ì˜ˆì‹œ: 3ë²ˆì§¸ ì—´ì„ ì´ìš©í•˜ì—¬ ì²˜ë¦¬
+            // Æ¯Á¤ ¿­¿¡ ´ëÇÑ Ã³¸®
+            if (i == 5) { // ¿¹½Ã: 3¹øÂ° ¿­À» ÀÌ¿ëÇÏ¿© Ã³¸®
                 double value = atof(token);
 
-                // ìµœëŒ€ê°’ ê°±ì‹ 
+                // ÃÖ´ë°ª °»½Å
                 if (*count == 0 || value > *max) {
                     *max = value;
                 }
 
-                // ìµœì†Œê°’ ê°±ì‹ 
+                // ÃÖ¼Ò°ª °»½Å
                 if (*count == 0 || value < *min) {
                     *min = value;
                 }
 
-                // í‰ê·  ëˆ„ì 
+                // Æò±Õ ´©Àû
                 *sum += value;
                 *count += 1;
             }
