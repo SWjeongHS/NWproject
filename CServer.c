@@ -43,21 +43,14 @@ int main(int argc, char*argv[]){
     }
 
     
-    FILE *file13 = fopen("Receive13.csv","wt");
-    char buffer13[1024];
-    ssize_t bytesRead13;
-    while((bytesRead13=recv(clnt_sock,buffer13,sizeof(buffer13),0))>0){
-        fwrite(buffer13,1,bytesRead13,file13);
+    FILE *file = fopen("ReceiveBusan.csv","wt");
+    char buffer[1024];
+    ssize_t bytesRead;
+    while((bytesRead=recv(clnt_sock,buffer,sizeof(buffer),0))>0){
+        fwrite(buffer,1,bytesRead,file);
     }
-    fclose(file13);
+    fclose(file);
 
-    FILE *file14 = fopen("Receive14.csv","wt");
-    char buffer14[1024];
-    ssize_t bytesRead14;
-    while((bytesRead14=recv(clnt_sock,buffer14,sizeof(buffer14),0))>0){
-        fwrite(buffer14,1,bytesRead14,file14);
-    }
-    fclose(file14);
     close(clnt_sock);
     close(serv_sock);
 
