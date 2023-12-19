@@ -34,14 +34,16 @@ int main(int argc, char *argv[]){
         error_handling("connect() error!");
     }
 
+    const char localName[] = "D";
+    send(sock,localName,strlen(localName),0);
     FILE * file13 = fopen("13daejeon.csv","rt");
     
     char line[1024];
 
-    int count = 0;
-    double sum = 0.0;
-    double max = 0.0; // 최대값 초기화
-    double min = 0.0; // 최소값 초기화
+    int count1 = 0;
+    double sum1 = 0.0;
+    double max1 = 0.0; // 최대값 초기화
+    double min1 = 0.0; // 최소값 초기화
 
     while (fgets(line, 1024, file13) != NULL) {
         size_t len = strlen(line);
@@ -49,13 +51,13 @@ int main(int argc, char *argv[]){
             line[len - 1] = '\0';
         }
 
-        processCSVRow(line, &count, &sum, &max, &min);
+        processCSVRow(line, &count1, &sum1, &max1, &min1);
     }
-    if (count > 0) {
-        double average = sum / count;
-        printf("13 max: %.2f\n", max);
-        printf("13 min: %.2f\n", min);
-        printf("13 avg: %.2f\n", average);
+    if (count1 > 0) {
+        double average1 = sum1 / count1;
+        printf("13 max: %.2f\n", max1);
+        printf("13 min: %.2f\n", min1);
+        printf("13 avg: %.2f\n", average1);
     }
     else {
         printf("데이터가 없습니다.\n");
@@ -87,23 +89,23 @@ int main(int argc, char *argv[]){
     
     FILE * file14 = fopen("14daejeon.csv","rt");
     char line2 [1024];
-    count = 0;
-    sum = 0.0;
-    min = 0.0;
-    max = 0.0;
+    int count2 = 0;
+    double sum2 = 0.0;
+    double min2 = 0.0;
+    double max2 = 0.0;
     while (fgets(line2, 1024, file13) != NULL) {
         size_t len = strlen(line2);
         if (len > 0 && line2[len - 1] == '\n') {
             line2[len - 1] = '\0';
         }
 
-        processCSVRow(line2, &count, &sum, &max, &min);
+        processCSVRow(line2, &count2, &sum2, &max2, &min2);
     }
-    if (count > 0) {
-        double average = sum / count;
-        printf("14max: %.2f\n", max);
-        printf("14min: %.2f\n", min);
-        printf("14avg: %.2f\n", average);
+    if (count2 > 0) {
+        double average2 = sum2 / count2;
+        printf("14max: %.2f\n", max2);
+        printf("14min: %.2f\n", min2);
+        printf("14avg: %.2f\n", average2);
     }
     else {
         printf("데이터가 없습니다.\n");

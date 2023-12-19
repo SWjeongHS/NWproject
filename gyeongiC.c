@@ -33,7 +33,8 @@ int main(int argc, char *argv[]){
     if(connect(sock,(struct sockaddr*)&serv_addr,sizeof(serv_addr))==-1){
         error_handling("connect() error!");
     }
-
+    const char localName[] = "G";
+    send(sock,localName,strlen(localName),0);
     FILE * file13 = fopen("13gyeongi.csv","rt");
     
     char line[1024];
