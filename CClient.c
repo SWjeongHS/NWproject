@@ -69,10 +69,6 @@ int main(int argc, char *argv[]){
     file_buffer14[file_size14]='\0';
     fclose(file14);
 
-    
-
-    
-
     ssize_t sentBytes14 = send(sock,file_buffer14,file_size14,0);
     if(sentBytes14==-1){
         error_handling("read() error!");
