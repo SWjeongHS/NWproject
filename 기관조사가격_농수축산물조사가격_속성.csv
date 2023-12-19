@@ -1,0 +1,18 @@
+컬럼명,컬럼명(한글),설명,데이터 타입,Null 여부,PK,"필터(Y:필수, N:선택)"
+SURVEY_DATE,조사일,조사일,CHAR(8),N,Y,Y
+AREA_NAME,조사지역명,조사지역명,VARCHAR2(20),N,N,N
+AREA_CODE,조사지역 코드,조사지역 코드,CHAR(4),N,Y,
+MARKET_NAME,조사시장명,조사시장명,VARCHAR2(20),Y,N,N
+MARKET_CODE,조사시장 코드,조사시장 코드,CHAR(2),N,Y,
+ITEM_NAME,품목명,품목명,VARCHAR2(20),N,N,N
+ITEM_CODE,품목코드,품목코드,CHAR(3),N,Y,
+KIND_NAME,풍목상세명,풍목상세명,VARCHAR2(20),N,N,N
+KIND_CODE,풍목상세코드,풍목상세코드,CHAR(2),N,Y,
+STYPE_NAME,유통단계,유통단계,VARCHAR2(20),Y,N,
+SURVEY_TYPE,유통단계 구분,유통단계 구분,CHAR(1),N,Y,N
+GRADE_NAME,등급,등급,VARCHAR2(10),Y,Y,
+SURVEY_GRADE,등급 코드,등급 코드,CHAR(1),N,N,
+SURVEY_UNIT,규격,규격,VARCHAR2(20),N,Y,
+TODAY_PRICE,조사가격,조사가격,NUMBER(9),N,N,
+YESDAY_PRICE,전일 조사가격,전일 조사가격,NUMBER(9),Y,N,
+,,,,,,
