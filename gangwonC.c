@@ -163,7 +163,7 @@ int main(int argc, char *argv[]){
     while(1){
         requestData[0]='\0';
         if(recv(sock,requestData,sizeof(requestData),0)>0){
-            if(strcmp(requestData,"E")==0){
+            if(strcmp(requestData,"24")==0){
                 ssize_t sentBytes22 = send(sock,file_buffer22,file_size22,0);
                 if(sentBytes22==-1){
                     error_handling("read() error!");
