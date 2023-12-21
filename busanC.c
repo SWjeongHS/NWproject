@@ -20,7 +20,6 @@ int main(int argc, char *argv[]){
     int infoArr14[1000][4]={0,}; // 1000 == 100~999품목번호, 4 == 0->count, 1->min, 2->max, 3->sum
     char nameArr14[1000][30]; // 1000 == 100~999품목번호, 30 == 품목명 길이
     double avgArr14[1000]={0.0};
-    double avg = 0.0;
     int count=0;
     if(argc!=3){
         printf("Usage : %s <IP><port>\n",argv[0]);

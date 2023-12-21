@@ -7,14 +7,20 @@
 #define BUF_SIZE 1024
 
 void error_handling(char *message);
-void processCSVRow(const char *line, int *count, double *sum, double *max, double *min);
+void processCSVRow(const char *line, int (*arr)[4], char (*name)[30]);
 
 //강원강원
 
 int main(int argc, char *argv[]){
     int sock;
     struct sockaddr_in serv_addr;
-
+    int infoArr13[1000][4]={0,}; // 1000 == 100~999품목번호, 4 == 0->count, 1->min, 2->max, 3->sum
+    char nameArr13[1000][30]; // 1000 == 100~999품목번호, 30 == 품목명 길이
+    double avgArr13[1000]={0.0};
+    int infoArr14[1000][4]={0,}; // 1000 == 100~999품목번호, 4 == 0->count, 1->min, 2->max, 3->sum
+    char nameArr14[1000][30]; // 1000 == 100~999품목번호, 30 == 품목명 길이
+    double avgArr14[1000]={0.0};
+    int count = 0;
     if(argc!=3){
         printf("Usage : %s <IP><port>\n",argv[0]);
         exit(1);
@@ -50,16 +56,14 @@ int main(int argc, char *argv[]){
             line[len - 1] = '\0';
         }
 
-        processCSVRow(line, &count, &sum, &max, &min);
+        processCSVRow(line, infoArr13, nameArr13);
     }
-    if (count > 0) {
-        double average = sum / count;
-        printf("13 max: %.2f\n", max);
-        printf("13 min: %.2f\n", min);
-        printf("13 avg: %.2f\n", average);
-    }
-    else {
-        printf("데이터가 없습니다.\n");
+    while(count<1000){
+        if(infoArr13[count][0]!=0){
+            avgArr13[count]=infoArr13[count][3]/infoArr13[count][0];
+            printf("상품번호 : %2d 상품명 : %2s\n최저가 : %2d 최고가 : %2d 평균가 : %2.2lf\n",count,nameArr13[count],infoArr13[count][1],infoArr13[count][2],avgArr13[count]);
+        }
+        count++;
     }
 
     fseek(file13,0,SEEK_END);
@@ -88,27 +92,22 @@ int main(int argc, char *argv[]){
     
     FILE * file14 = fopen("14gangwon.csv","rt");
     char line2 [1024];
-    count = 0;
-    sum = 0.0;
-    min = 0.0;
-    max = 0.0;
     while (fgets(line2, 1024, file13) != NULL) {
         size_t len = strlen(line2);
         if (len > 0 && line2[len - 1] == '\n') {
             line2[len - 1] = '\0';
         }
 
-        processCSVRow(line2, &count, &sum, &max, &min);
+        processCSVRow(line2, infoArr14, nameArr14);
     }
-    if (count > 0) {
-        double average = sum / count;
-        printf("14max: %.2f\n", max);
-        printf("14min: %.2f\n", min);
-        printf("14avg: %.2f\n", average);
-    }
-    else {
-        printf("데이터가 없습니다.\n");
-    }
+    count = 0;
+    while(count<1000){
+        if(infoArr14[count][0]!=0){
+            avgArr14[count]=infoArr14[count][3]/infoArr14[count][0];
+            printf("상품번호 : %2d 상품명 : %2s\n최저가 : %2d 최고가 : %2d 평균가 : %2.2lf\n",count,nameArr14[count],infoArr14[count][1],infoArr14[count][2],avgArr14[count]);
+        }
+        count++;
+    } 
 
     fseek(file14,0,SEEK_END);
     long file_size14 = ftell(file14);
@@ -136,39 +135,50 @@ int main(int argc, char *argv[]){
     return 0;
 }
 
-void processCSVRow(const char *line, int *count, double *sum, double *max, double *min) {
+void processCSVRow(const char *line, int (*arr)[4], char (*name)[30]) {
     char *token;
+    char *PDTname;//현재 상품명
+    int PDTprice;//현재 가격
     char *rest = (char *)malloc(strlen(line) + 1);
+    int num;
     strcpy(rest, line);
 
-    // ','를 기준으로 토큰 분리
+    // ','로 분류
     for (int i = 0; i < 6; ++i) {
         token = strtok_r(rest, ",", &rest);
         if (token != NULL) {
-            // 특정 열에 대한 처리
-            if (i == 5) { // 예시: 3번째 열을 이용하여 처리
-                double value = atof(token);
+            if (i == 2){
+                PDTname = token;
+            }
+            if (i == 4){
+                PDTprice = atoi(token);
+            }
+            if (i == 5) { // 품목번호일때
+                num = atoi(token); // num == 품목번호
 
-                // 최대값 갱신
-                if (*count == 0 || value > *max) {
-                    *max = value;
+                if(name[num][0]=='\0'){//이름이 없으면 저장
+                    strcpy(name[num],PDTname);
+                }
+                // 최저가 갱신
+                if (arr[num][0] == 0 || PDTprice > arr[num][2]) {
+                    arr[num][2] = PDTprice;
                 }
 
-                // 최소값 갱신
-                if (*count == 0 || value < *min) {
-                    *min = value;
+                // 최고가 갱신
+
+                if (arr[num][0] == 0 || PDTprice < arr[num][1]) {
+                    arr[num][1] = PDTprice;
                 }
 
-                // 평균 누적
-                *sum += value;
-                *count += 1;
+                arr[num][3] += PDTprice;
+                arr[num][0]++;
             }
         } else {
             break;
         }
     }
 
-}
+}    
 void error_handling(char *message){
     fputs(message, stderr);
     fputc('\n',stderr);
