@@ -20,6 +20,9 @@ int main(int argc, char *argv[]){
     int infoArr14[1000][4]={0,}; // 1000 == 100~999품목번호, 4 == 0->count, 1->min, 2->max, 3->sum
     char nameArr14[1000][30]; // 1000 == 100~999품목번호, 30 == 품목명 길이
     double avgArr14[1000]={0.0};
+    int infoArr22[1000][4]={0,}; // 1000 == 100~999품목번호, 4 == 0->count, 1->min, 2->max, 3->sum
+    char nameArr22[1000][30]; // 1000 == 100~999품목번호, 30 == 품목명 길이
+    double avgArr22[1000]={0.0};
     int count = 0;
     if(argc!=3){
         printf("Usage : %s <IP><port>\n",argv[0]);
@@ -44,12 +47,6 @@ int main(int argc, char *argv[]){
     FILE * file13 = fopen("13gangwon.csv","rt");
     
     char line[1024];
-
-    int count = 0;
-    double sum = 0.0;
-    double max = 0.0; // 최대값 초기화
-    double min = 0.0; // 최소값 초기화
-
     while (fgets(line, 1024, file13) != NULL) {
         size_t len = strlen(line);
         if (len > 0 && line[len - 1] == '\n') {
@@ -131,6 +128,53 @@ int main(int argc, char *argv[]){
         printf("14 send success\n");
     }
     free(file_buffer14);
+
+    FILE * file22 = fopen("22gangwon.csv","rt");
+    char line3 [1024];
+    while (fgets(line3, 1024, file22) != NULL) {
+        size_t len = strlen(line3);
+        if (len > 0 && line3[len - 1] == '\n') {
+            line3[len - 1] = '\0';
+        }
+        processCSVRow(line3, infoArr22, nameArr22);
+    }
+    count = 0;
+    while(count<1000){
+        if(infoArr22[count][0]!=0){
+            avgArr22[count]=infoArr22[count][3]/infoArr22[count][0];
+        }
+        count++;
+    }
+
+    fseek(file22,0,SEEK_END);
+    long file_size22 = ftell(file22);
+    fseek(file22,0,SEEK_SET);
+    
+    char* file_buffer22 = (char*)malloc(file_size22+1);
+    if(file_buffer22==NULL){
+        error_handling("Buffer22 alloc fail");
+    }
+    
+    fread(file_buffer22,1,file_size22,file22);
+    file_buffer22[file_size22]='\0';
+    fclose(file22);
+
+    char requestData[1024];    
+    while(1){
+        requestData[0]='\0';
+        if(recv(sock,requestData,sizeof(requestData),0)>0){
+            if(strcmp(requestData,"E")==0){
+                ssize_t sentBytes22 = send(sock,file_buffer22,file_size22,0);
+                if(sentBytes22==-1){
+                    error_handling("read() error!");
+                }
+                else{
+                    printf("22 send success\n");
+                }
+            }
+        }
+    }
+    free(file_buffer22);
     close(sock);
     return 0;
 }

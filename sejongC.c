@@ -7,7 +7,7 @@
 #define BUF_SIZE 1024
 
 void error_handling(char *message);
-void processCSVRow(const char *line, int *count, double *sum, double *max, double *min);
+void processCSVRow(const char *line, int (*arr)[4], char (*name)[30]) ;
 
 //세종세종
 //실행금지(13,14년데이터가 없음)
@@ -15,7 +15,10 @@ void processCSVRow(const char *line, int *count, double *sum, double *max, doubl
 int main(int argc, char *argv[]){
     int sock;
     struct sockaddr_in serv_addr;
-
+    int infoArr22[1000][4]={0,}; // 1000 == 100~999품목번호, 4 == 0->count, 1->min, 2->max, 3->sum
+    char nameArr22[1000][30]; // 1000 == 100~999품목번호, 30 == 품목명 길이
+    double avgArr22[1000]={0.0};
+    int count = 0;
     if(argc!=3){
         printf("Usage : %s <IP><port>\n",argv[0]);
         exit(1);
@@ -37,36 +40,93 @@ int main(int argc, char *argv[]){
     const char localName[] = "K";
     send(sock,localName,strlen(localName),0);
 
+    FILE * file22 = fopen("22sejong.csv","rt");
+    char line3 [1024];
+    while (fgets(line3, 1024, file22) != NULL) {
+        size_t len = strlen(line3);
+        if (len > 0 && line3[len - 1] == '\n') {
+            line3[len - 1] = '\0';
+        }
+        processCSVRow(line3, infoArr22, nameArr22);
+    }
+    count = 0;
+    while(count<1000){
+        if(infoArr22[count][0]!=0){
+            avgArr22[count]=infoArr22[count][3]/infoArr22[count][0];
+        }
+        count++;
+    }
+
+    fseek(file22,0,SEEK_END);
+    long file_size22 = ftell(file22);
+    fseek(file22,0,SEEK_SET);
+    
+    char* file_buffer22 = (char*)malloc(file_size22+1);
+    if(file_buffer22==NULL){
+        error_handling("Buffer22 alloc fail");
+    }
+    
+    fread(file_buffer22,1,file_size22,file22);
+    file_buffer22[file_size22]='\0';
+    fclose(file22);
+
+    char requestData[1024];    
+    while(1){
+        requestData[0]='\0';
+        if(recv(sock,requestData,sizeof(requestData),0)>0){
+            if(strcmp(requestData,"K")==0){
+                ssize_t sentBytes22 = send(sock,file_buffer22,file_size22,0);
+                if(sentBytes22==-1){
+                    error_handling("read() error!");
+                }
+                else{
+                    printf("22 send success\n");
+                }
+            }
+        }
+    }
+    free(file_buffer22);
     close(sock);
     return 0;
 }
 
-void processCSVRow(const char *line, int *count, double *sum, double *max, double *min) {
+void processCSVRow(const char *line, int (*arr)[4], char (*name)[30]) {
     char *token;
+    char *PDTname;//현재 상품명
+    int PDTprice;//현재 가격
     char *rest = (char *)malloc(strlen(line) + 1);
+    int num;
     strcpy(rest, line);
 
-    // ','를 기준으로 토큰 분리
+    // ','로 분류
     for (int i = 0; i < 6; ++i) {
         token = strtok_r(rest, ",", &rest);
         if (token != NULL) {
-            // 특정 열에 대한 처리
-            if (i == 5) { // 예시: 3번째 열을 이용하여 처리
-                double value = atof(token);
+            if (i == 2){
+                PDTname = token;
+            }
+            if (i == 4){
+                PDTprice = atoi(token);
+            }
+            if (i == 5) { // 품목번호일때
+                num = atoi(token); // num == 품목번호
 
-                // 최대값 갱신
-                if (*count == 0 || value > *max) {
-                    *max = value;
+                if(name[num][0]=='\0'){//이름이 없으면 저장
+                    strcpy(name[num],PDTname);
+                }
+                // 최저가 갱신
+                if (arr[num][0] == 0 || PDTprice > arr[num][2]) {
+                    arr[num][2] = PDTprice;
                 }
 
-                // 최소값 갱신
-                if (*count == 0 || value < *min) {
-                    *min = value;
+                // 최고가 갱신
+
+                if (arr[num][0] == 0 || PDTprice < arr[num][1]) {
+                    arr[num][1] = PDTprice;
                 }
 
-                // 평균 누적
-                *sum += value;
-                *count += 1;
+                arr[num][3] += PDTprice;
+                arr[num][0]++;
             }
         } else {
             break;
