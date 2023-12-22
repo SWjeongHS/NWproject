@@ -9,20 +9,20 @@
 void error_handling(char *message);
 void processCSVRow(const char *line, int (*arr)[4], char (*name)[30]);
 
-//ÃæºÏÃæºÏ
+//ì¶©ë¶ì¶©ë¶
 
 int main(int argc, char *argv[]){
     int sock;
     struct sockaddr_in serv_addr;
 
-    int infoArr13[1000][4]={0,}; // 1000 == 100~999Ç°¸ñ¹øÈ£, 4 == 0->count, 1->min, 2->max, 3->sum
-    char nameArr13[1000][30]; // 1000 == 100~999Ç°¸ñ¹øÈ£, 30 == Ç°¸ñ¸í ±æÀÌ
+    int infoArr13[1000][4]={0,}; // 1000 == 100~999í’ˆëª©ë²ˆí˜¸, 4 == 0->count, 1->min, 2->max, 3->sum
+    char nameArr13[1000][30]; // 1000 == 100~999í’ˆëª©ë²ˆí˜¸, 30 == í’ˆëª©ëª… ê¸¸ì´
     double avgArr13[1000]={0.0};
-    int infoArr14[1000][4]={0,}; // 1000 == 100~999Ç°¸ñ¹øÈ£, 4 == 0->count, 1->min, 2->max, 3->sum
-    char nameArr14[1000][30]; // 1000 == 100~999Ç°¸ñ¹øÈ£, 30 == Ç°¸ñ¸í ±æÀÌ
+    int infoArr14[1000][4]={0,}; // 1000 == 100~999í’ˆëª©ë²ˆí˜¸, 4 == 0->count, 1->min, 2->max, 3->sum
+    char nameArr14[1000][30]; // 1000 == 100~999í’ˆëª©ë²ˆí˜¸, 30 == í’ˆëª©ëª… ê¸¸ì´
     double avgArr14[1000]={0.0};
-    int infoArr22[1000][4]={0,}; // 1000 == 100~999Ç°¸ñ¹øÈ£, 4 == 0->count, 1->min, 2->max, 3->sum
-    char nameArr22[1000][30]; // 1000 == 100~999Ç°¸ñ¹øÈ£, 30 == Ç°¸ñ¸í ±æÀÌ
+    int infoArr22[1000][4]={0,}; // 1000 == 100~999í’ˆëª©ë²ˆí˜¸, 4 == 0->count, 1->min, 2->max, 3->sum
+    char nameArr22[1000][30]; // 1000 == 100~999í’ˆëª©ë²ˆí˜¸, 30 == í’ˆëª©ëª… ê¸¸ì´
     double avgArr22[1000]={0.0};
     int count=0;
 
@@ -45,7 +45,8 @@ int main(int argc, char *argv[]){
         error_handling("connect() error!");
     }
     const char localName[] = "B";
-    send(sock,localName,strlen(localName),0);
+    ssize_t sendbyte = send(sock,localName,strlen(localName),0);
+
     FILE * file13 = fopen("13chungbuk.csv","rt");
     
     char line[1024];
@@ -61,7 +62,7 @@ int main(int argc, char *argv[]){
     while(count<1000){
         if(infoArr13[count][0]!=0){
             avgArr13[count]=infoArr13[count][3]/infoArr13[count][0];
-            printf("»óÇ°¹øÈ£ : %2d »óÇ°¸í : %2s\nÃÖÀú°¡ : %2d ÃÖ°í°¡ : %2d Æò±Õ°¡ : %2.2lf\n",count,nameArr13[count],infoArr13[count][1],infoArr13[count][2],avgArr13[count]);
+            printf("ìƒí’ˆë²ˆí˜¸ : %2d ìƒí’ˆëª… : %2s\nìµœì €ê°€ : %2d ìµœê³ ê°€ : %2d í‰ê· ê°€ : %2.2lf\n",count,nameArr13[count],infoArr13[count][1],infoArr13[count][2],avgArr13[count]);
         }
         count++;
     }
@@ -74,10 +75,8 @@ int main(int argc, char *argv[]){
     if(file_buffer13==NULL){
         error_handling("Buffer13 alloc fail");
     }
-    
+    file_buffer13[file_size13]='\0';
     fread(file_buffer13,1,file_size13,file13);
-    size_t ramain;
-
     
     fclose(file13);
     ssize_t sentBytes13 = send(sock,file_buffer13,file_size13,0);
@@ -105,7 +104,7 @@ int main(int argc, char *argv[]){
     while(count<1000){
         if(infoArr14[count][0]!=0){
             avgArr14[count]=infoArr14[count][3]/infoArr14[count][0];
-            printf("»óÇ°¹øÈ£ : %2d »óÇ°¸í : %2s\nÃÖÀú°¡ : %2d ÃÖ°í°¡ : %2d Æò±Õ°¡ : %2.2lf\n",count,nameArr14[count],infoArr14[count][1],infoArr14[count][2],avgArr14[count]);
+            printf("ìƒí’ˆë²ˆí˜¸ : %2d ìƒí’ˆëª… : %2s\nìµœì €ê°€ : %2d ìµœê³ ê°€ : %2d í‰ê· ê°€ : %2.2lf\n",count,nameArr14[count],infoArr14[count][1],infoArr14[count][2],avgArr14[count]);
         }
         count++;
     }   
@@ -118,9 +117,9 @@ int main(int argc, char *argv[]){
     if(file_buffer14==NULL){
         error_handling("Buffer14 alloc fail");
     }
-    
-    fread(file_buffer14,1,file_size14,file14);
     file_buffer14[file_size14]='\0';
+    fread(file_buffer14,1,file_size14,file14);
+    
     fclose(file14);
 
     ssize_t sentBytes14 = send(sock,file_buffer14,file_size14,0);
@@ -160,7 +159,6 @@ int main(int argc, char *argv[]){
     }
     
     fread(file_buffer22,1,file_size22,file22);
-    file_buffer22[file_size22]='\0';
     fclose(file22);
 
     char requestData[1024];    
@@ -185,13 +183,13 @@ int main(int argc, char *argv[]){
 
 void processCSVRow(const char *line, int (*arr)[4], char (*name)[30]) {
     char *token;
-    char *PDTname;//ÇöÀç »óÇ°¸í
-    int PDTprice;//ÇöÀç °¡°İ
+    char *PDTname;//í˜„ì¬ ìƒí’ˆëª…
+    int PDTprice;//í˜„ì¬ ê°€ê²©
     char *rest = (char *)malloc(strlen(line) + 1);
     int num;
     strcpy(rest, line);
 
-    // ','·Î ºĞ·ù
+    // ','ë¡œ ë¶„ë¥˜
     for (int i = 0; i < 6; ++i) {
         token = strtok_r(rest, ",", &rest);
         if (token != NULL) {
@@ -201,18 +199,18 @@ void processCSVRow(const char *line, int (*arr)[4], char (*name)[30]) {
             if (i == 4){
                 PDTprice = atoi(token);
             }
-            if (i == 5) { // Ç°¸ñ¹øÈ£ÀÏ¶§
-                num = atoi(token); // num == Ç°¸ñ¹øÈ£
+            if (i == 5) { // í’ˆëª©ë²ˆí˜¸ì¼ë•Œ
+                num = atoi(token); // num == í’ˆëª©ë²ˆí˜¸
 
-                if(name[num][0]=='\0'){//ÀÌ¸§ÀÌ ¾øÀ¸¸é ÀúÀå
+                if(name[num][0]=='\0'){//ì´ë¦„ì´ ì—†ìœ¼ë©´ ì €ì¥
                     strcpy(name[num],PDTname);
                 }
-                // ÃÖÀú°¡ °»½Å
+                // ìµœì €ê°€ ê°±ì‹ 
                 if (arr[num][0] == 0 || PDTprice > arr[num][2]) {
                     arr[num][2] = PDTprice;
                 }
 
-                // ÃÖ°í°¡ °»½Å
+                // ìµœê³ ê°€ ê°±ì‹ 
 
                 if (arr[num][0] == 0 || PDTprice < arr[num][1]) {
                     arr[num][1] = PDTprice;
