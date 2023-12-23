@@ -1,0 +1,530 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Form</class>
+ <widget class="QWidget" name="Form">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>806</width>
+    <height>834</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <widget class="QStackedWidget" name="mainbtn">
+   <property name="geometry">
+    <rect>
+     <x>40</x>
+     <y>10</y>
+     <width>761</width>
+     <height>741</height>
+    </rect>
+   </property>
+   <property name="currentIndex">
+    <number>0</number>
+   </property>
+   <widget class="QWidget" name="page">
+    <widget class="QComboBox" name="yearcombo">
+     <property name="geometry">
+      <rect>
+       <x>190</x>
+       <y>180</y>
+       <width>391</width>
+       <height>41</height>
+      </rect>
+     </property>
+     <item>
+      <property name="text">
+       <string>년도</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>2013</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>2014</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>2022</string>
+      </property>
+     </item>
+    </widget>
+    <widget class="QComboBox" name="localcombo">
+     <property name="geometry">
+      <rect>
+       <x>190</x>
+       <y>290</y>
+       <width>391</width>
+       <height>41</height>
+      </rect>
+     </property>
+     <item>
+      <property name="text">
+       <string>지역</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>부산</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>충북</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>대구</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>대전</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>강원</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>광주</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>경기</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>제주</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>전주</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>서울</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>세종</string>
+      </property>
+     </item>
+    </widget>
+    <widget class="QComboBox" name="itemcombo">
+     <property name="geometry">
+      <rect>
+       <x>190</x>
+       <y>410</y>
+       <width>391</width>
+       <height>41</height>
+      </rect>
+     </property>
+     <item>
+      <property name="text">
+       <string>상품</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>방울토마토</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>미나리</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>찹쌀</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>콩</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>팥(적두)</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>고구마</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>감자</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>시금치</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>토마토</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>당근</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>마늘</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>양파</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>파</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>생각</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>건미역</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>굴</string>
+      </property>
+     </item>
+    </widget>
+    <widget class="QPushButton" name="checkbtn">
+     <property name="geometry">
+      <rect>
+       <x>310</x>
+       <y>570</y>
+       <width>161</width>
+       <height>71</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>PushButton</string>
+     </property>
+    </widget>
+   </widget>
+   <widget class="QWidget" name="page_3">
+    <widget class="QFrame" name="frame2">
+     <property name="geometry">
+      <rect>
+       <x>30</x>
+       <y>10</y>
+       <width>681</width>
+       <height>721</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">/* QFrame의 배경 스타일 */
+QFrame {
+    background-color: #ffffff; /* 배경 색상 */
+    border: 1px solid #cccccc; /* 테두리 스타일 및 색상 */
+    border-radius: 4px; /* 테두리 모서리 둥글게 설정 */
+    padding: 5px; /* 내부 여백 설정 */
+}
+</string>
+     </property>
+     <property name="frameShape">
+      <enum>QFrame::StyledPanel</enum>
+     </property>
+     <property name="frameShadow">
+      <enum>QFrame::Raised</enum>
+     </property>
+     <widget class="QLabel" name="label_3">
+      <property name="geometry">
+       <rect>
+        <x>310</x>
+        <y>540</y>
+        <width>51</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">/* QLabel의 일반 상태 스타일 */
+QLabel {
+    color: #333333; /* 텍스트 색상 */
+    background-color: transparent; /* 배경색상 투명 */
+    font-size: 16px; /* 글꼴 크기 */
+    font-weight: bold; /* 글꼴 두껍게 설정 */
+}
+
+/* QLabel의 마우스 호버 상태 스타일 */
+QLabel:hover {
+    color: #555555; /* 호버 상태에서의 텍스트 색상 */
+}
+
+/* QLabel의 클릭 상태 스타일 */
+QLabel:pressed {
+    color: #777777; /* 클릭 상태에서의 텍스트 색상 */
+}
+</string>
+      </property>
+      <property name="text">
+       <string>최소</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_4">
+      <property name="geometry">
+       <rect>
+        <x>310</x>
+        <y>620</y>
+        <width>51</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">/* QLabel의 일반 상태 스타일 */
+QLabel {
+    color: #333333; /* 텍스트 색상 */
+    background-color: transparent; /* 배경색상 투명 */
+    font-size: 16px; /* 글꼴 크기 */
+    font-weight: bold; /* 글꼴 두껍게 설정 */
+}
+
+/* QLabel의 마우스 호버 상태 스타일 */
+QLabel:hover {
+    color: #555555; /* 호버 상태에서의 텍스트 색상 */
+}
+
+/* QLabel의 클릭 상태 스타일 */
+QLabel:pressed {
+    color: #777777; /* 클릭 상태에서의 텍스트 색상 */
+}
+</string>
+      </property>
+      <property name="text">
+       <string>평균</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="max_label">
+      <property name="geometry">
+       <rect>
+        <x>380</x>
+        <y>580</y>
+        <width>100</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label">
+      <property name="geometry">
+       <rect>
+        <x>50</x>
+        <y>550</y>
+        <width>141</width>
+        <height>41</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">/* QLabel의 일반 상태 스타일 */
+QLabel {
+    color: #333333; /* 텍스트 색상 */
+    background-color: transparent; /* 배경색상 투명 */
+    font-size: 16px; /* 글꼴 크기 */
+    font-weight: bold; /* 글꼴 두껍게 설정 */
+}
+
+/* QLabel의 마우스 호버 상태 스타일 */
+QLabel:hover {
+    color: #555555; /* 호버 상태에서의 텍스트 색상 */
+}
+
+/* QLabel의 클릭 상태 스타일 */
+QLabel:pressed {
+    color: #777777; /* 클릭 상태에서의 텍스트 색상 */
+}
+</string>
+      </property>
+      <property name="text">
+       <string>상품</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_2">
+      <property name="geometry">
+       <rect>
+        <x>310</x>
+        <y>580</y>
+        <width>51</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">/* QLabel의 일반 상태 스타일 */
+QLabel {
+    color: #333333; /* 텍스트 색상 */
+    background-color: transparent; /* 배경색상 투명 */
+    font-size: 16px; /* 글꼴 크기 */
+    font-weight: bold; /* 글꼴 두껍게 설정 */
+}
+
+/* QLabel의 마우스 호버 상태 스타일 */
+QLabel:hover {
+    color: #555555; /* 호버 상태에서의 텍스트 색상 */
+}
+
+/* QLabel의 클릭 상태 스타일 */
+QLabel:pressed {
+    color: #777777; /* 클릭 상태에서의 텍스트 색상 */
+}
+</string>
+      </property>
+      <property name="text">
+       <string>최대</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="min_label">
+      <property name="geometry">
+       <rect>
+        <x>380</x>
+        <y>540</y>
+        <width>100</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+      </property>
+     </widget>
+     <widget class="QWidget" name="verticalLayoutWidget">
+      <property name="geometry">
+       <rect>
+        <x>90</x>
+        <y>100</y>
+        <width>491</width>
+        <height>421</height>
+       </rect>
+      </property>
+      <layout class="QVBoxLayout" name="graph_verticalLayout"/>
+     </widget>
+     <widget class="QLabel" name="average_label">
+      <property name="geometry">
+       <rect>
+        <x>380</x>
+        <y>620</y>
+        <width>100</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="pushButton13">
+      <property name="geometry">
+       <rect>
+        <x>470</x>
+        <y>30</y>
+        <width>111</width>
+        <height>51</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">border: none;
+    background-color: #3498db;
+    color: #ffffff;
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 5px;</string>
+      </property>
+      <property name="text">
+       <string>뒤로가기</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_5">
+      <property name="geometry">
+       <rect>
+        <x>50</x>
+        <y>600</y>
+        <width>141</width>
+        <height>41</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">/* QLabel의 일반 상태 스타일 */
+QLabel {
+    color: #333333; /* 텍스트 색상 */
+    background-color: transparent; /* 배경색상 투명 */
+    font-size: 16px; /* 글꼴 크기 */
+    font-weight: bold; /* 글꼴 두껍게 설정 */
+}
+
+/* QLabel의 마우스 호버 상태 스타일 */
+QLabel:hover {
+    color: #555555; /* 호버 상태에서의 텍스트 색상 */
+}
+
+/* QLabel의 클릭 상태 스타일 */
+QLabel:pressed {
+    color: #777777; /* 클릭 상태에서의 텍스트 색상 */
+}
+</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+    </widget>
+   </widget>
+   <widget class="QWidget" name="page_2">
+    <widget class="QPushButton" name="pushButton">
+     <property name="geometry">
+      <rect>
+       <x>30</x>
+       <y>20</y>
+       <width>711</width>
+       <height>681</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>PushButton</string>
+     </property>
+    </widget>
+   </widget>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
