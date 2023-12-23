@@ -1,0 +1,35 @@
+from socket import *
+import numpy as np
+
+class SocketInfo():
+    HOST = "10.10.20.108"
+    PORT = 9191
+    BUFSIZE = 1000000000
+    ADDR = (HOST, PORT)
+
+a="2013,"#년도
+b="142,"#상품
+c="02"#지역
+sendserver=f'{a+b+c}'
+csock = socket(AF_INET, SOCK_STREAM)
+csock.connect(SocketInfo.ADDR)
+print("connection is success")
+
+to_server = "P" # Change to string
+right_method = to_server.encode("UTF-8")
+sent = csock.send(right_method)
+print("Send Data : {}, bytes len : {}, bytes : {}".format(to_server, len(right_method), right_method))
+
+to_server = sendserver # Change to string
+right_method = to_server.encode("UTF-8")
+
+print("Send Data : {}, bytes len : {}, bytes : {}".format(to_server, len(right_method), right_method))
+csock.send(right_method)
+commend = csock.recv(SocketInfo.BUFSIZE)
+data = commend.decode("UTF-8")
+
+print("type : {}, data len : {}, data : {}, Contents : {}".format(type(commend), len(commend), commend, data))
+print()
+
+csock.close()
+exit()
